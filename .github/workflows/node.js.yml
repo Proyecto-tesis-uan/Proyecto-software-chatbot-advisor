@@ -24,3 +24,13 @@ jobs:
 
       - name: Build
         run: npm run build
+        
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: AKIARRBYHQ5M4I4PK3AY
+          AWS_SECRET_ACCESS_KEY: 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
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region us-west-2 \
+            dist s3://angularbucketchat
