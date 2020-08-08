@@ -47,4 +47,28 @@ jobs:
           aws s3 cp \
             --recursive \
               dist/Proyecto-software-chatbot-advisor s3://angularbucketchat 
-        
+              
+     
+  my_cd_pipeline:    
+       runs-on: ubuntu-18.04
+       steps:
+         - name: credentials
+           env:
+            AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
+            AWS_SECRET_ACCESS_KEY: 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
+            AWS_REGION: us-west-2
+           
+         - name: Create new ElasticBeanstalk Application Version
+           run: |
+             aws elasticbeanstalk create-application-version \
+             --aplication-name Mychatbotadvisor \
+             --source-budle S3Bucket=angularbucketchat 
+              
+         - name: Deploy our new Aplication Version
+           run: aws elasticbeanstalk update-enviroment-name Mychatbotadvisor-env  
+         
+         - name: Print nice message on completion of cd Pipeline
+           run: ech "CD Pipeline part finished successfully"
+           
+                     
+           
