@@ -61,7 +61,7 @@ jobs:
               AWS_REGION: us-west-2
            run: |
              aws elasticbeanstalk create-application-version \
-             --aplication-name Mychatbotadvisor \
+             --application-name Mychatbotadvisor \
              --source-budle S3Bucket=angularbucketchat 
               
          - name: Deploy our new Aplication Version
