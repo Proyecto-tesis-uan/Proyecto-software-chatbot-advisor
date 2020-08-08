@@ -5,6 +5,8 @@ env:
   EB_ENVIRONMENT_NAME       : "Mychatbotadvisor-env"
   DEPLOY_PACKAGE_NAME       : "angularbucketchat-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-west-2"
+  AWS_ACCESS_KEY_ID: "AKIARRBYHQ5MQKEQDJ7F"
+  AWS_SECRET_ACCESS_KEY: "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"
 
 on: 
   push:
@@ -24,8 +26,9 @@ jobs:
            
          - name: Copy our Deployment package to S3 bucket
            env:
-            AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
-            AWS_SECRET_ACCESS_KEY: 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
+            AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+            aws-region           : ${{ env.AWS_REGION_NAME }}
            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
          
          - name: Print nice message on completion of CI Pipeline
@@ -36,12 +39,14 @@ jobs:
        needs: [my_ci_pipeline]
        
        steps:
-                
+         - name: Configure my AWS Credentils
+           uses: aws-actions/configure-aws-credentials@v1
+           with:
+             aws-access-key-id    : ${{ env.AWS_ACCESS_KEY_ID  }}
+             aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+             aws-region           : ${{ env.AWS_REGION_NAME }}
+         
          - name: Create new ElasticBeanstalk Applicaiton Version
-           env:
-             AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
-             AWS_SECRET_ACCESS_KEY: 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
-             AWS_REGION: us-west-2
            run : |
             aws elasticbeanstalk create-application-version \
             --application-name ${{ env.EB_APPLICATION_NAME }} \
