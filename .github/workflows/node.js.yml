@@ -47,6 +47,7 @@ jobs:
           aws s3 cp \
             --recursive \
               dist/Proyecto-software-chatbot-advisor s3://angularbucketchat 
+              zip ../myapp.zip -r * .[^.]*
               
      
   my_cd_pipeline:    
@@ -63,7 +64,7 @@ jobs:
              aws elasticbeanstalk create-application-version \
              --application-name Mychatbotadvisor \
              --version-label "ver-${{ github.sha }}" \
-             --source-budle S3Bucket=angularbucketchat 
+             --source-budle S3Bucket="angularbucketchat" 
               
          - name: Deploy our new Aplication Version
            run: aws elasticbeanstalk update-enviroment-name Mychatbotadvisor-env  
