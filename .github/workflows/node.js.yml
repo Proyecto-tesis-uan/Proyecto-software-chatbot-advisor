@@ -36,14 +36,11 @@ jobs:
        needs: [my_ci_pipeline]
        
        steps:
-         - name: Configure my AWS Credentils
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-             aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
-             aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
-             aws-region           : ${{ env.AWS_REGION_NAME }}
-         
+                
          - name: Create new ElasticBeanstalk Applicaiton Version
+           env:
+             AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
+             AWS_SECRET_ACCESS_KEY: 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
            run : |
             aws elasticbeanstalk create-application-version \
             --application-name ${{ env.EB_APPLICATION_NAME }} \
