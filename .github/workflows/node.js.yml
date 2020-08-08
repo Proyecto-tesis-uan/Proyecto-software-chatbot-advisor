@@ -41,7 +41,7 @@ jobs:
            env:
              AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
              AWS_SECRET_ACCESS_KEY: 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
-             AWS_REGION: AWS_REGION_NAME
+             AWS_REGION: us-west-2
            run : |
             aws elasticbeanstalk create-application-version \
             --application-name ${{ env.EB_APPLICATION_NAME }} \
