@@ -10,7 +10,7 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME: "angularbucketchat"
   EB_APPLICATION_NAME      : "Mychatbotadvisor"
   EB_ENVIROMENT_NAME       : "Mychatbotadvisor-env"
-  DEPLOY_PACKAGE_NAME      : "Proyecto-software-chatbot-advisor- -${{ github.sha }}"
+  DEPLOY_PACKAGE_NAME      : "Proyecto-software-chatbot-advisor--${{ github.sha }}"
   AWS_REGION_NAME          : "us-west-2"
   AWS_ACCESS_KEY_ID        : "AKIARRBYHQ5MQKEQDJ7F"
   AWS_SECRET_ACCESS_KEY    : "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"
