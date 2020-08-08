@@ -1,35 +1,46 @@
-name: Angular S3 Build
+#       ___       __      _                
+#      /   | ____/ /   __(_)________  _____
+#     / /| |/ __  / | / / / ___/ __ \/ ___/
+#    / ___ / /_/ /| |/ / (__  ) /_/ / /    
+#   /_/  |_\__,_/ |___/_/____/\____/_/   DEPLOY
+
+
+name: CI-CD-Pipeline-to-AWS-ElasticBeanstalk
+env:
+  EB_PACKAGE_S3_BUCKET_NAME: "angularbucketchat"
+  EB_APPLICATION_NAME      : "Mychatbotadvisor"
+  EB_ENVIROMENT_NAME       : "Mychatbotadvisor-env"
+  DEPLOY_PACKAGE_NAME      : "Proyecto-software-chatbot-advisor- -${{ github.sha }}"
+  AWS_REGION_NAME          : "us-west-2"
+  AWS_ACCESS_KEY_ID        : "AKIARRBYHQ5MQKEQDJ7F"
+  AWS_SECRET_ACCESS_KEY    : "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"
 on:
   push:
     branches:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
+  my_ci_pipeline:
+    runs-on: ubuntu-lastest
+    
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@master
+      - name: Git clone our repository
+        uses: actions/checkout@v1
 
-      - name: Cache node modules
-        uses: actions/cache@v1
+      - name: Create ZIP deployment package
+        uses: zip -r ${{ env.DEPLY_PACKAGE_NAME }} ./ -X *.git*
+      
+      - name: Configure my AWS credencial
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+          aws-access-key-id    : ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region           : ${{ env.AWS_REGION_NAME }}
         
-      - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
-          AWS_SECRET_ACCESS_KEY: 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
-        run: |
-          aws s3 cp \
-            --recursive \
-              dist/Proyecto-software-chatbot-advisor s3://angularbucketchat 
+      - name: Copy our Deployment package to s3 bucket
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
+        
+      - name: Print nice message on completion of CI Pipeline
+        run:   echo "CI Pipeline part finish successfully"
+        
+        
