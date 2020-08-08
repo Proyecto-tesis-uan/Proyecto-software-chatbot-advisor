@@ -62,7 +62,7 @@ jobs:
            run: |
              aws elasticbeanstalk create-application-version \
              --application-name Mychatbotadvisor \
-             --version-lable "ver-${{ github.sha }}" \
+             --version-label "ver-${{ github.sha }}" \
              --source-budle S3Bucket=angularbucketchat 
               
          - name: Deploy our new Aplication Version
