@@ -52,6 +52,7 @@ jobs:
   my_cd_pipeline:    
        runs-on: ubuntu-18.04
        needs: [my_ci_pipeline]
+       
        steps:
          - name: credentials
            env:
