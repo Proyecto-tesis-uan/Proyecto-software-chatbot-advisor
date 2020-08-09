@@ -20,9 +20,12 @@ jobs:
        steps:
          - name: Git clone our repository
            uses: actions/checkout@v1
+           
+         - name: Build
+           run: npm run build
             
          - name: Create ZIP deployment package
-           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
+           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./dist/Proyecto-software-chatbot-advisor  -x  *.git*
            
          - name: Copy our Deployment package to S3 bucket
            env:
