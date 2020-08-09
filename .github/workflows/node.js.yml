@@ -36,7 +36,7 @@ jobs:
            run: npm run build
             
          - name: Create ZIP deployment package
-           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} /dist/Proyecto-software-chatbot-advisor/*
+           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} -i /dist/Proyecto-software-chatbot-advisor/*
            
          - name: Copy our Deployment package to S3 bucket
            env:
