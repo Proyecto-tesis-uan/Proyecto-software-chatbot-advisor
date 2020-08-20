@@ -28,3 +28,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Proyecto-tesis-uan_Proyecto-software-chatbot-advisor&metric=alert_status)](https://sonarcloud.io/dashboard?id=Proyecto-tesis-uan_Proyecto-software-chatbot-advisor)
+
+##BUGS
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Proyecto-tesis-uan_Proyecto-software-chatbot-advisor&metric=bugs)](https://sonarcloud.io/dashboard?id=Proyecto-tesis-uan_Proyecto-software-chatbot-advisor)
