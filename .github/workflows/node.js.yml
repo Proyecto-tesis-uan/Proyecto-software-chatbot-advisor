@@ -27,8 +27,8 @@ jobs:
         
       - name: Deploy
         env:
-          AWS_ACCESS_KEY_ID: AKIARRBYHQ5MQKEQDJ7F
-          AWS_SECRET_ACCESS_KEY: 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
+          AWS_ACCESS_KEY_ID: ${{ secrets.MY_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.MY_SECRET }}
         run: |
           aws s3 cp \
             --recursive \
